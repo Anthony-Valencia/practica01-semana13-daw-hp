@@ -97,7 +97,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ---------- REST FRAMEWORK ----------
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 5,
+    "PAGE_SIZE": 6,
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
         "rest_framework.filters.SearchFilter",
@@ -108,8 +108,8 @@ REST_FRAMEWORK = {
         "rest_framework.throttling.UserRateThrottle",
     ],
     "DEFAULT_THROTTLE_RATES": {
-        "anon": "10/min",
-        "user": "30/min",
+        "anon": "30/min",
+        "user": "60/min",
     },
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
@@ -121,9 +121,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5500",
     "http://127.0.0.1:5500",
 ]
-CSRF_TRUSTED_ORIGINS = (
-    CORS_ALLOWED_ORIGINS  # necesario para peticiones de escritura desde SPA
-)
+CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
 
 # ---------- DRF SPECTACULAR ----------
 SPECTACULAR_SETTINGS = {

@@ -1,38 +1,52 @@
 from rest_framework import serializers
-from .models import Tarea
+from .models import Producto
 
 
-class TareaSerializer(serializers.HyperlinkedModelSerializer):
-    # Campo calculado de solo lectura
-    estado_legible = serializers.SerializerMethodField()
+class ProductoSerializer(serializers.HyperlinkedModelSerializer):
+    categoria_legible = serializers.SerializerMethodField()
+    disponible_legible = serializers.SerializerMethodField()
 
     class Meta:
-        model = Tarea
+        model = Producto
         fields = (
             "url",
             "id",
-            "titulo",
+            "nombre",
             "descripcion",
-            "completada",
-            "estado_legible",
+            "categoria",
+            "categoria_legible",
+            "precio",
+            "disponible",
+            "disponible_legible",
+            "destacado",
+            "imagen",
             "creado_en",
         )
         read_only_fields = ("id", "creado_en")
 
-    def get_estado_legible(self, obj):
-        return "Completada" if obj.completada else "Pendiente"
+    def get_categoria_legible(self, obj):
+        return obj.get_categoria_display()
 
-    def validate_titulo(self, value):
-        if len(value.strip()) < 3:
+    def get_disponible_legible(self, obj):
+        return "Disponible" if obj.disponible else "Agotado"
+
+    def validate_nombre(self, value):
+        value = value.strip()
+        if len(value) < 3:
             raise serializers.ValidationError(
-                "El título debe tener al menos 3 caracteres."
+                "El nombre debe tener al menos 3 caracteres."
             )
-        return value.strip()
+        return value
+
+    def validate_precio(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("El precio debe ser mayor a cero.")
+        return value
 
     def validate(self, data):
-        # Validación cruzada a nivel de objeto (ejemplo didáctico)
-        if data.get("completada") and not data.get("descripcion"):
+        # Regla de negocio: un producto destacado debe estar disponible
+        if data.get("destacado") and not data.get("disponible", True):
             raise serializers.ValidationError(
-                "Una tarea completada debe tener una descripción."
+                "Un producto destacado debe estar disponible."
             )
         return data

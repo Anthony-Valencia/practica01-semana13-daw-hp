@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aroma Café — Catálogo artesanal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bg: #faf3ea;
+        --surface: #ffffff;
+        --primary: #4a2c2a;
+        --primary-dark: #2d1b12;
+        --accent: #c68b59;
+        --accent-2: #b85c38;
+        --sage: #7a9e7e;
+        --text: #2d1b12;
+        --muted: #8d6e63;
+        --border: #e8dcc8;
+        --success: #6b8e23;
+        --danger: #c62828;
+        --shadow-sm: 0 1px 3px rgba(74, 44, 42, 0.08);
+        --shadow-md: 0 4px 16px rgba(74, 44, 42, 0.12);
+        --shadow-lg: 0 8px 32px rgba(74, 44, 42, 0.16);
+        --radius: 14px;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* HEADER */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(250, 243, 234, 0.92);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+      .logo-badge {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        display: grid;
+        place-items: center;
+        font-size: 1.2rem;
+        color: #fff8ec;
+        box-shadow: var(--shadow-sm);
+      }
+      .logo small {
+        display: block;
+        font-family: "Inter", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 1.5px;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+      header nav a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.9rem;
+        margin-left: 20px;
+        transition: color 0.2s;
+      }
+      header nav a:hover {
+        color: var(--accent-2);
+      }
+
+      /* HERO */
+      .hero {
+        position: relative;
+        background: linear-gradient(
+          135deg,
+          #4a2c2a 0%,
+          #6f4e37 50%,
+          #b85c38 100%
+        );
+        color: #fff8ec;
+        padding: 72px 24px 96px;
+        text-align: center;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            circle at 15% 25%,
+            rgba(198, 139, 89, 0.4),
+            transparent 45%
+          ),
+          radial-gradient(
+            circle at 85% 75%,
+            rgba(184, 92, 56, 0.35),
+            transparent 45%
+          );
+      }
+      .hero h1 {
+        position: relative;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 5vw, 3.4rem);
+        font-weight: 700;
+        line-height: 1.15;
+        margin-bottom: 14px;
+        letter-spacing: -0.5px;
+      }
+      .hero p {
+        position: relative;
+        max-width: 560px;
+        margin: 0 auto;
+        font-size: clamp(1rem, 2vw, 1.15rem);
+        opacity: 0.9;
+      }
+
+      /* CONTROLS */
+      .controls {
+        max-width: 1180px;
+        width: calc(100% - 48px);
+        margin: -44px auto 32px;
+        padding: 18px 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-md);
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        position: relative;
+        z-index: 10;
+      }
+      .search-box {
+        flex: 1 1 220px;
+        position: relative;
+      }
+      .search-box input {
+        width: 100%;
+        padding: 12px 16px 12px 42px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 0.95rem;
+        background: var(--bg);
+        color: var(--text);
+        transition: all 0.2s;
+      }
+      .search-box input:focus {
+        outline: none;
+        border-color: var(--accent);
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba(198, 139, 89, 0.18);
+      }
+      .search-box .icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--muted);
+        pointer-events: none;
+        font-size: 1rem;
+      }
+      .chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1.5px solid var(--border);
+        background: transparent;
+        color: var(--muted);
+        font-family: inherit;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .chip:hover {
+        border-color: var(--accent);
+        color: var(--primary);
+      }
+      .chip.active {
+        background: var(--primary);
+        color: #fff8ec;
+        border-color: var(--primary);
+      }
+      select {
+        padding: 10px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        background: var(--bg);
+        color: var(--text);
+        font-family: inherit;
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
+
+      /* GRID */
+      main.grid {
+        max-width: 1180px;
+        width: 100%;
+        margin: 0 auto 40px;
+        padding: 0 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+        flex: 1;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+      .card-img {
+        aspect-ratio: 4/3;
+        background: var(--bg) center/cover no-repeat;
+        position: relative;
+      }
+      .badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background: rgba(255, 248, 236, 0.96);
+        color: var(--primary);
+      }
+      .badge.destacado {
+        left: auto;
+        right: 12px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #fff8ec;
+      }
+      .badge.agotado {
+        left: auto;
+        right: 12px;
+        top: auto;
+        bottom: 12px;
+        background: var(--danger);
+        color: #fff;
+      }
+      .card-body {
+        padding: 18px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-body h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.2rem;
+        color: var(--primary);
+        margin-bottom: 6px;
+      }
+      .card-body p {
+        font-size: 0.88rem;
+        color: var(--muted);
+        flex: 1;
+        margin-bottom: 14px;
+      }
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .price {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--accent-2);
+      }
+      .price small {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      .hateoas {
+        font-size: 0.7rem;
+        color: var(--muted);
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 8px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        transition: all 0.2s;
+      }
+      .hateoas:hover {
+        color: var(--accent-2);
+        border-color: var(--accent);
+      }
+
+      /* STATES */
+      .state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--muted);
+      }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--border);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        margin: 0 auto 16px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* PAGINATION */
+      .pagination {
+        max-width: 1180px;
+        margin: 0 auto 48px;
+        padding: 0 24px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        align-items: center;
+      }
+      .pagination button {
+        padding: 10px 18px;
+        border-radius: 10px;
+        border: 1.5px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .pagination button:hover:not(:disabled) {
+        border-color: var(--accent);
+        color: var(--accent-2);
+      }
+      .pagination button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .pagination .info {
+        color: var(--muted);
+        font-size: 0.9rem;
+        padding: 0 12px;
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--primary-dark);
+        color: #e8dcc8;
+        padding: 36px 24px 24px;
+        text-align: center;
+        margin-top: auto;
+      }
+      footer h4 {
+        font-family: "Playfair Display", serif;
+        color: #fff8ec;
+        font-size: 1.3rem;
+        margin-bottom: 6px;
+      }
+      footer p {
+        font-size: 0.85rem;
+        opacity: 0.8;
+      }
+      .throttle-btn {
+        margin-top: 16px;
+        padding: 10px 20px;
+        border: 1.5px solid var(--accent);
+        background: transparent;
+        color: var(--accent);
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 0.82rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .throttle-btn:hover {
+        background: var(--accent);
+        color: var(--primary-dark);
+      }
+
+      /* TOAST */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        padding: 14px 20px;
+        border-radius: 12px;
+        background: var(--primary);
+        color: #fff8ec;
+        box-shadow: var(--shadow-lg);
+        max-width: 380px;
+        font-size: 0.9rem;
+        transform: translateY(200%);
+        transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        z-index: 100;
+      }
+      .toast.show {
+        transform: translateY(0);
+      }
+      .toast.error {
+        background: var(--danger);
+      }
+      .toast.success {
+        background: var(--success);
+      }
+
+      @media (max-width: 600px) {
+        .hero {
+          padding: 56px 20px 80px;
+        }
+        .controls {
+          margin-top: -32px;
+          padding: 14px;
+        }
+        .search-box {
+          flex: 1 1 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="#" class="logo">
+        <span class="logo-badge">☕</span>
+        <span>Aroma Café<small>Cafetería artesanal</small></span>
+      </a>
+      <nav>
+        <a href="http://127.0.0.1:8000/api/docs/" target="_blank">API Docs</a>
+        <a href="http://127.0.0.1:8000/api/productos/" target="_blank">JSON</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>El aroma de lo artesanal</h1>
+      <p>
+        Cafés de especialidad, tés selectos, postres y snacks horneados cada
+        mañana.
+      </p>
+    </section>
+
+    <section class="controls">
+      <div class="search-box">
+        <span class="icon">🔍</span>
+        <input
+          id="search"
+          type="search"
+          placeholder="Buscar por nombre o descripción..."
+        />
+      </div>
+      <div class="chips">
+        <button class="chip active" data-cat="">Todos</button>
+        <button class="chip" data-cat="cafe">Café</button>
+        <button class="chip" data-cat="te">Té</button>
+        <button class="chip" data-cat="postre">Postre</button>
+        <button class="chip" data-cat="snack">Snack</button>
+      </div>
+      <select id="ordering">
+        <option value="-creado_en">Más recientes</option>
+        <option value="precio">Precio ↑</option>
+        <option value="-precio">Precio ↓</option>
+        <option value="nombre">Nombre A-Z</option>
+        <option value="-nombre">Nombre Z-A</option>
+      </select>
+    </section>
+
+    <main class="grid" id="grid"></main>
+    <nav class="pagination" id="pagination"></nav>
+
+    <footer>
+      <h4>Aroma Café</h4>
+      <p>Av. Los Álamos 123, Huancayo · (064) 123-456</p>
+      <p>© 2026 — Demo del catálogo consumiendo la API RESTful.</p>
+      <button class="throttle-btn" id="throttle-btn">
+        Probar throttling (100 peticiones)
+      </button>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      const API = "http://127.0.0.1:8000/api";
+      const state = {
+        search: "",
+        categoria: "",
+        ordering: "-creado_en",
+        page: 1,
+      };
+
+      const grid = document.getElementById("grid");
+      const pagination = document.getElementById("pagination");
+      const toastEl = document.getElementById("toast");
+
+      function toast(msg, type = "") {
+        toastEl.textContent = msg;
+        toastEl.className = "toast show " + type;
+        clearTimeout(toastEl._t);
+        toastEl._t = setTimeout(() => {
+          toastEl.className = "toast " + type;
+        }, 3800);
+      }
+
+      async function load() {
+        grid.innerHTML =
+          '<div class="state"><div class="spinner"></div>Cargando productos...</div>';
+        const params = new URLSearchParams();
+        if (state.search) params.append("search", state.search);
+        if (state.categoria) params.append("categoria", state.categoria);
+        if (state.ordering) params.append("ordering", state.ordering);
+        params.append("page", state.page);
+
+        try {
+          const res = await fetch(`${API}/productos/?${params.toString()}`);
+          if (res.status === 429) {
+            grid.innerHTML =
+              '<div class="state">Demasiadas peticiones (429). Espera un momento antes de volver a filtrar.</div>';
+            pagination.innerHTML = "";
+            toast("Límite de peticiones alcanzado (429).", "error");
+            return;
+          }
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const data = await res.json();
+          render(data);
+        } catch (err) {
+          console.error(err);
+          grid.innerHTML =
+            '<div class="state">Error al cargar. ¿Está el servidor Django corriendo en :8000?</div>';
+          pagination.innerHTML = "";
+        }
+      }
+
+      function render(data) {
+        if (!data.results.length) {
+          grid.innerHTML =
+            '<div class="state">No se encontraron productos con esos filtros.</div>';
+          pagination.innerHTML = "";
+          return;
+        }
+        grid.innerHTML = data.results.map(cardHTML).join("");
+        renderPagination(data);
+      }
+
+      function cardHTML(p) {
+        const img =
+          p.imagen ||
+          `https://picsum.photos/seed/${encodeURIComponent(p.nombre)}/600/400`;
+        const precio = Number(p.precio).toFixed(2);
+        return `
+      <article class="card">
+        <div class="card-img" style="background-image:url('${img}')">
+          <span class="badge">${p.categoria_legible}</span>
+          ${p.destacado ? '<span class="badge destacado">★ Destacado</span>' : ""}
+          ${!p.disponible ? '<span class="badge agotado">Agotado</span>' : ""}
+        </div>
+        <div class="card-body">
+          <h3>${p.nombre}</h3>
+          <p>${p.descripcion || "Sin descripción"}</p>
+          <div class="card-footer">
+            <div class="price"><small>S/</small> ${precio}</div>
+            <a class="hateoas" href="${p.url}" target="_blank" rel="noopener">API ↗</a>
+          </div>
+        </div>
+      </article>`;
+      }
+
+      function renderPagination(data) {
+        const pageSize = 6;
+        const total = Math.max(1, Math.ceil(data.count / pageSize));
+        if (total <= 1) {
+          pagination.innerHTML = "";
+          return;
+        }
+        pagination.innerHTML = `
+      <button ${data.previous ? "" : "disabled"} onclick="goPage(${state.page - 1})">← Anterior</button>
+      <span class="info">Página ${state.page} de ${total}</span>
+      <button ${data.next ? "" : "disabled"} onclick="goPage(${state.page + 1})">Siguiente →</button>
+    `;
+      }
+
+      function goPage(n) {
+        state.page = n;
+        load();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      window.goPage = goPage;
+
+      // Eventos
+      let searchTimer;
+      document.getElementById("search").addEventListener("input", (e) => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+          state.search = e.target.value.trim();
+          state.page = 1;
+          load();
+        }, 350);
+      });
+
+      document.querySelectorAll(".chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          document
+            .querySelectorAll(".chip")
+            .forEach((c) => c.classList.remove("active"));
+          chip.classList.add("active");
+          state.categoria = chip.dataset.cat;
+          state.page = 1;
+          load();
+        });
+      });
+
+      document.getElementById("ordering").addEventListener("change", (e) => {
+        state.ordering = e.target.value;
+        state.page = 1;
+        load();
+      });
+
+      document
+        .getElementById("throttle-btn")
+        .addEventListener("click", async () => {
+          toast("Enviando 100 peticiones para probar throttling...");
+          let throttled = 0,
+            exitos = 0;
+          for (let i = 0; i < 100; i++) {
+            try {
+              const r = await fetch(`${API}/productos/`);
+              if (r.status === 429) throttled++;
+              else if (r.ok) exitos++;
+            } catch (e) {
+              break;
+            }
+          }
+          if (throttled > 0) {
+            toast(
+              `✓ Throttling activo: ${exitos} OK, ${throttled} bloqueadas con 429.`,
+              "success",
+            );
+          } else {
+            toast(
+              `Sin bloqueo. Sube las peticiones o baja el límite en settings.py.`,
+              "error",
+            );
+          }
+        });
+
+      load();
+    </script>
+  </body>
+</html>
